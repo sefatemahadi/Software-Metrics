@@ -52,3 +52,7 @@ class ClassInfo2(ClassInfo, abc):
                 
     def inheritedMethods(self, inheritedMethods):
         self.__inheritedMethods = inheritedMethods
+        
+        
+class class3(ClassInfo2):
+    

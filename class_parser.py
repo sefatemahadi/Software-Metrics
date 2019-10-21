@@ -100,6 +100,7 @@ class ClassParser:
     def find_inherited_methods(self):
         temp = self.classNames[0: len(self.classNames)]
         dic = {}
+        self.depthOfInheritance = 1
         while len(self.classNames) != len(dic):
             class_name = temp[0]
             temp.pop(0)
@@ -122,6 +123,8 @@ class ClassParser:
                 if i not in self.classNames:
                     continue
                 parent_class = self.__get_this_class(i)
+                dic[class_name] = max(dic[class_name], dic[parent_class.name] + 1)
+                self.depthOfInheritance = max(self.depthOfInheritance, dic[class_name])
                 this_class.inheritedMethods = this_class.inheritedMethods.union(parent_class.methods)
                 this_class.inheritedAttributes =  this_class.inheritedAttributes.union(parent_class.attributes)
 
