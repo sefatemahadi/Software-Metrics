@@ -12,6 +12,17 @@ class ClassParser:
         self.path = path
         self.classes = []
         self.classNames = []
+        self.totalAttributes = 0
+        self.totalMethods = 0
+        self.publicMethods = 0
+        self.privateMethods = 0
+        self.privateAttributes = 0
+        self.publicAttributes = 0
+        self.totalInheritedMethods = 0
+        self.totalInheritedAttributes = 0
+        self.totalOverriddenMethods = 0
+        self.totalOverriddenAttributes = 0
+        self.totalClasses = 0
     
     def __len_(self):
         return len(self.classes)
@@ -32,12 +43,20 @@ class ClassParser:
         for r, d, f in os.walk(self.path):
             for file in f:
                 if '.py' in file:
-                    self.__parse(os.path.join(r, file))
-    
+                    try:
+                        self.__parse(os.path.join(r, file))
+                    except Exception:
+                        pass
+                    
     def __parse(self, file_name):
-        f = open(file_name, 'r')
+        print('Parsing file...', file_name)
+        f = open(file_name, 'r', encoding = 'utf-8')
         for i, line in enumerate(f):
-#            print('LINE ', i, '-->', line)
+            try:
+                if '#' in line:
+                    line = line[0:line.find('#')]
+            except Exception:
+                pass
             temp_line = line.split()
             if 'class' in temp_line:
                 temp_line = ' '.join(temp_line)
@@ -108,14 +127,33 @@ class ClassParser:
 
     def just_call_this_method(self):
         self.parse()
-        self.find_inherited_methods()
+        try:
+            self.find_inherited_methods()
+        except Exception:
+            pass
         for i in self.classes:
             i.precalc()
+        self.__store_info()    
+    def __store_info(self):
+        for per_class in self.classes:
+            self.totalAttributes += len(per_class.get_total_attributes())
+            self.totalMethods += len(per_class.get_total_methods())
+            self.totalInheritedMethods += len(per_class.inheritedMethods)
+            self.totalInheritedAttributes += len(per_class.inheritedAttributes)
+            self.totalOverriddenMethods += len(per_class.get_overridden_methods())
+            self.totalOverriddenAttributes += len(per_class.get_overridden_attributes())
+            self.publicMethods += len(per_class.publicMethods)
+            self.privateMethods += len(per_class.privateMethods)
+            self.privateAttributes += len(per_class.privateAttributes)
+            self.publicAttributes += len(per_class.publicAttributes)
+            self.totalClasses += 1
+    
     def print_all_class_info(self):
         for i in self.classes:
             pprint(vars(i))
 folder_path = 'E:\\Spyder\\pp\\Software-Metrics\\test'                           
 cp = ClassParser(folder_path)
 cp.just_call_this_method()
-cp.print_all_class_info()
+pprint(vars(cp))
+
 

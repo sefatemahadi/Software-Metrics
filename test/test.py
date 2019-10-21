@@ -4,8 +4,10 @@ Created on Sun Oct 20 19:35:42 2019
 
 @author: hp
 """
-
-
+#abc
+#def
+#class info
+#
 class ClassInfo:
     def __init__(self, className = '', methods = set(), attributes = set(), parentClasses = set()):
         self.name = className
