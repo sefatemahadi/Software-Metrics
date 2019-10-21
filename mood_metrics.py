@@ -19,13 +19,13 @@ class MoodMetrics:
         return 1 - self.project.publicAttributes/(min(1, self.project.totalClasses - 1))/self.project.totalAttributes
     
     def mif(self): #method inheritance factor
-        return self.project.totalInheritedMethods/self.project.totalMethods
+        return self.project.totalInheritedMethods/max(self.project.totalMethods, 1)
     
     def aif(self): #attribute inheritance factor
-        return self.project.totalInheritedAttributes/self.project.totalAttributes
+        return self.project.totalInheritedAttributes/max(self.project.totalAttributes, 1)
     
     def pf(self): #polymorphism Factor
-        return self.project.totalOverriddenMethods/self.project.totalInheritedMethods
+        return self.project.totalOverriddenMethods/max(self.project.totalInheritedMethods, 1)
     
     def get_mood_metrics(self):
         print('MHF: ', round(self.mhf(), 2))
@@ -35,7 +35,8 @@ class MoodMetrics:
         print('PF: ', round(self.pf(), 2))
 
 folder_path = 'E:\\Spyder\\pp\\Software-Metrics\\test' 
-folder_path = 'E:\\Spyder\\pp\\catapult-master'      
+#folder_path = 'E:\\Spyder\\pp\\catapult-master' 
+#folder_path = 'E:\\Spyder\pp\\Beginners-Python-Examples-master\\shell_games'     
 temp = MoodMetrics(folder_path)
 temp.get_mood_metrics()
 print(temp.project.classes)

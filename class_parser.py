@@ -70,7 +70,7 @@ class ClassParser:
                     temp_line = temp_line.replace(r, ' ')
                 
                 temp_line = temp_line.split()
-                if self.__len_() > 0:
+                if self.__len_() > 0 and 'self' in temp_line:
                     self.classes[self.__len_() - 1].methods.add(temp_line[0])
                     
             elif 'self.' in line and '=' in line:
