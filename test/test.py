@@ -49,10 +49,12 @@ class ClassInfo2(ClassInfo, abc):
         self.inheritedMethods = set()
         self.__refresh()
     
-                
+    
     def inheritedMethods(self, inheritedMethods):
         self.__inheritedMethods = inheritedMethods
         
         
 class class3(ClassInfo2):
-    
+
+def abc(self):    
+ def tahmid(self) :  

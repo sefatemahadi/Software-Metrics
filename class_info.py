@@ -35,9 +35,11 @@ class ClassInfo:
                 self.publicAttributes.add(attribute)
                 
     def get_overridden_methods(self):
+        self.overridenMethods = self.methods.intersection(self.inheritedMethods)
         return self.methods.intersection(self.inheritedMethods)
     
     def get_overridden_attributes(self):
+        self.overridenAttributes = self.attributes.intersection(self.inheritedAttributes) 
         return self.attributes.intersection(self.inheritedAttributes) 
     
     def get_total_methods(self):

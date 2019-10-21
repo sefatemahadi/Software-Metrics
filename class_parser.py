@@ -64,7 +64,7 @@ class ClassParser:
                         
             elif 'def' in temp_line:
                 temp_line = ' '.join(temp_line)                        
-                replaces = ['def', '(', ')', ':']
+                replaces = ['def', '(', ')', ':', ',']
                 for r in replaces:
                     
                     temp_line = temp_line.replace(r, ' ')
@@ -158,5 +158,8 @@ folder_path = 'E:\\Spyder\\pp\\Software-Metrics\\test'
 cp = ClassParser(folder_path)
 cp.just_call_this_method()
 pprint(vars(cp))
+
+for i in cp.classes:
+    pprint(vars(i))
 
 
